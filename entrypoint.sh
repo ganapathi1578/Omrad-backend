@@ -15,7 +15,7 @@ import os
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-email = os.environ.get('SUPERUSER_EMAIL', 'admin@example.com')
+email = os.environ.get('SUPERUSER_EMAIL', 'admin@example.com    ')
 password = os.environ.get('SUPERUSER_PASSWORD', 'admin123')
 
 if not User.objects.filter(email=email).exists():
@@ -27,4 +27,4 @@ else:
 
 echo "Starting Django development server..."
 # The 'exec' command replaces the shell with the Django process
-exec python manage.py runserver 0.0.0.0:8000
+gunicorn inference_gateway.wsgi:application --bind 0.0.0.0:$PORT

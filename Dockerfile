@@ -1,16 +1,27 @@
-# Pull official base image
+# Base image
 FROM python:3.11-slim
 
-# Set environment variables
+
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Set work directory
 WORKDIR /app
 
-# Install dependencies
-COPY requirements.txt /app/
+# System deps
+RUN apt-get update && apt-get install -y \
+    gcc \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install deps
+COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copy the actual project code
-COPY . /app/
+# Copy code
+COPY . .
+
+# Entrypoint
+RUN chmod +x entrypoint.sh
+
+# Start
+CMD ["sh", "entrypoint.sh"]

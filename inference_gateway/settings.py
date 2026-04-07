@@ -30,7 +30,9 @@ ALLOWED_HOSTS = ["*"]
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_HEADERS = ["*"]
 CORS_ALLOW_METHODS = ["*"]
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://omrad-backend-service-production-bd21.up.railway.app"
+]
 # Application definition
 
 INSTALLED_APPS = [

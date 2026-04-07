@@ -26,5 +26,7 @@ else:
 "
 
 echo "Starting Django development server..."
+# python manage.py collectstatic --noinput
 # The 'exec' command replaces the shell with the Django process
-gunicorn inference_gateway.wsgi:application --bind 0.0.0.0:$PORT
+PORT=${PORT:-8000}
+exec gunicorn inference_gateway.wsgi:application --bind 0.0.0.0:$PORT 2>&1
